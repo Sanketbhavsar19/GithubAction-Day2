@@ -1,0 +1,11 @@
+name: My Second Workflow
+
+on: push 
+
+jobs: 
+  print: 
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: Testing phase  
+       run: echo "Testing"
