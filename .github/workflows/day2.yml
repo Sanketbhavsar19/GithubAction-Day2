@@ -5,22 +5,20 @@ on: push
 jobs: 
   Test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        node-version: [14, 16, 18]
 
     steps:
-     - name: Code Checkout Repo
-       uses: actions/checkout@v5
+      - name: Code checkout Repo
+        uses: actions/checkout@v5   
 
-     - name: Performing Test Cases
-       run:
-        echo "Testing the test cases "
-        sleep 15
+      - name: Setting up Node JS  ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+         node-version: ${{ matrix.node-version }}
 
-     - name: Generating report
-       run: echo "All TEST CASES PASSED !" > output.txt
+      - name: Verifying the Nodejs Version
+        run: node -v   
 
-     - name: Upload Artifact
-       uses : actions/upload-artifact@v4
-       with: 
-        name: test-report
-        path: output.txt
 
