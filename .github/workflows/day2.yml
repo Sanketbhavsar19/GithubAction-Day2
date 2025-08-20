@@ -3,32 +3,24 @@ name: My Second Workflow
 on: push 
 
 jobs: 
-  Build:
+  Test:
     runs-on: ubuntu-latest
 
     steps:
      - name: Code Checkout Repo
        uses: actions/checkout@v5
 
-     - name: Building 
-       run: echo "Building........"
+     - name: Performing Test Cases
+       run:
+        echo "Testing the test cases "
+        sleep 15
 
-  test:
-    runs-on: ubuntu-latest
-    needs: Build
+     - name: Generating report
+       run: echo "All TEST CASES PASSED !" > output.txt
 
-    steps:
-      - name: Testing
-        run: |
-          echo "Testing"
-          sleep 10 
+     - name: Upload Artifact
+       uses : actions/upload-artifiact@v4
+       with: 
+        name: test-report
+        path: output.txt
 
-  deploy:
-        runs-on: ubuntu-latest
-        needs: test  
-
-        steps:
-            - name: Deployment
-              run: | 
-                echo "Deploying........" 
-                sleep 5
